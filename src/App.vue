@@ -2,10 +2,10 @@
   <div>
     <header>
       <ButtonComponent @click="displayTheForm = !displayTheForm">Form</ButtonComponent>
-      <ButtonComponent>Admins</ButtonComponent>
-      <ButtonComponent>Users</ButtonComponent>
+      <ButtonComponent @click="displayAdmins = !displayAdmins">Admins</ButtonComponent>
+      <ButtonComponent @click="displayUsers = !displayUsers">Users</ButtonComponent>
     </header>
-    <FormComponent v-show="displayTheForm" />
+    <FormComponent :displayTheForm="displayTheForm" :displayAdmins="displayAdmins" :displayUsers="displayUsers" />
   </div>
 </template>
 
@@ -20,6 +20,8 @@ export default {
   data() {
     return {
       displayTheForm: true,
+      displayAdmins: true,
+      displayUsers: true,
       usersArray: [],
       adminsArray: [],
     };

@@ -1,33 +1,40 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <label>
-      Enter Your Name
-      <input required v-model="formData.personName" type="text" name="name" placeholder="userName" />
-    </label>
+  <div>
+    <form @submit.prevent="handleSubmit" v-show="displayTheForm">
+      <label>
+        Enter Your Name
+        <input required v-model="formData.personName" type="text" name="name" placeholder="userName" />
+      </label>
 
-    <label>
-      Enter Your Age
-      <input required v-model="formData.personAge" type="number" name="age" placeholder="age" />
-    </label>
+      <label>
+        Enter Your Age
+        <input required v-model="formData.personAge" type="number" name="age" placeholder="age" />
+      </label>
 
-    <label>
-      User
-      <input required v-model="formData.role" type="radio" name="role" value="user" />
-    </label>
-    <label>
-      Admin
-      <input required v-model="formData.role" type="radio" name="role" value="admin" />
-    </label>
+      <label>
+        User
+        <input required v-model="formData.role" type="radio" name="role" value="user" />
+      </label>
+      <label>
+        Admin
+        <input required v-model="formData.role" type="radio" name="role" value="admin" />
+      </label>
 
-    <ButtonComponent type="submit">Submit</ButtonComponent>
-  </form>
+      <ButtonComponent type="submit">Submit</ButtonComponent>
+    </form>
+
+    <AdminsComponent :displayAdmins="displayAdmins" />
+    <UsersComponent :displayUsers="displayUsers" />
+  </div>
 </template>
 
 <script>
+import AdminsComponent from './AdminsComponent.vue';
+import UsersComponent from './UsersComponent.vue';
 import ButtonComponent from './ButtonComponent.vue';
 export default {
   name: 'FormComponent',
-  components: { ButtonComponent },
+  components: { ButtonComponent, AdminsComponent, UsersComponent },
   data() {
     return {
       formData: {
@@ -36,20 +43,19 @@ export default {
         role: '',
       },
       users: [],
-      admins: []
+      admins: [],
     };
   },
+  props: ['displayTheForm', 'displayAdmins', 'displayUsers'],
   methods: {
     handleSubmit() {
       if (this.formData.role === 'user') {
-        // If role is 'user', push data into users array
         this.users.push({
           id: Math.random(),
           name: this.formData.personName,
           age: this.formData.personAge,
         });
       } else if (this.formData.role === 'admin') {
-        // If role is 'admin', push data into admins array
         this.admins.push({
           id: Math.random(),
           name: this.formData.personName,
