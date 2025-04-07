@@ -36,7 +36,7 @@ export default {
         role: '',
       },
       users: [],
-      admins: [],
+      admins: []
     };
   },
   methods: {
@@ -44,12 +44,14 @@ export default {
       if (this.formData.role === 'user') {
         // If role is 'user', push data into users array
         this.users.push({
+          id: Math.random(),
           name: this.formData.personName,
           age: this.formData.personAge,
         });
       } else if (this.formData.role === 'admin') {
         // If role is 'admin', push data into admins array
         this.admins.push({
+          id: Math.random(),
           name: this.formData.personName,
           age: this.formData.personAge,
         });
