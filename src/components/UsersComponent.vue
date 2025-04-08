@@ -1,6 +1,9 @@
 <template>
   <div v-show="displayUsers">
     <table class="user-table">
+      <caption class="table-caption">
+        Users
+      </caption>
       <thead>
         <tr>
           <th>Name</th>
@@ -9,17 +12,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>John Doe</td>
-          <td>28</td>
-          <td><button class="delete-btn">Delete User</button></td>
-        </tr>
-        <tr>
-          <td>Jane Smith</td>
-          <td>34</td>
-          <td><button class="delete-btn">Delete User</button></td>
+        <tr v-for="user in users" :key="user.id">
+          <td>{{ user.name }}</td>
+          <td>{{ user.age }}</td>
+          <td><button class="delete-btn" @click="$emit('delete-user', user.id)">Delete User</button></td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="clear-all">
+            <button v-show="users.length" class="delete-btn" @click="$emit('clearAllUser')">Clear All</button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </template>
@@ -27,7 +32,7 @@
 <script>
 export default {
   name: 'UsersComponent',
-  props: ['displayUsers'],
+  props: ['displayUsers', 'users'],
 };
 </script>
 
@@ -55,6 +60,26 @@ export default {
 
 .user-table tbody tr:hover {
   background-color: #f1f1f1;
+}
+
+.clear-all {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.clear-all button {
+  width: 40%;
+  padding: 10px;
+}
+.table-caption {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-top: 2px solid #007bff;
+  border-bottom: 2px solid #007bff;
 }
 
 .delete-btn {

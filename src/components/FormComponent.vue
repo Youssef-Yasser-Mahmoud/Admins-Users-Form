@@ -23,8 +23,18 @@
       <ButtonComponent type="submit">Submit</ButtonComponent>
     </form>
 
-    <AdminsComponent :displayAdmins="displayAdmins" />
-    <UsersComponent :displayUsers="displayUsers" />
+    <AdminsComponent
+      :displayAdmins="displayAdmins"
+      :admins="admins"
+      @delete-Admin="removeAdmin"
+      @clearAllAdmins="clearAllAdmins"
+    />
+    <UsersComponent
+      :displayUsers="displayUsers"
+      :users="users"
+      @delete-user="removeUser"
+      @clearAllUser="clearAllUser"
+    />
   </div>
 </template>
 
@@ -69,6 +79,18 @@ export default {
 
       console.log(this.users);
       console.log(this.admins);
+    },
+    removeUser(id) {
+      this.users = this.users.filter((ele) => ele.id !== id);
+    },
+    removeAdmin(id) {
+      this.admins = this.admins.filter((ele) => ele.id !== id);
+    },
+    clearAllUser() {
+      this.users = [];
+    },
+    clearAllAdmins() {
+      this.admins = [];
     },
   },
 };

@@ -4,6 +4,7 @@
       <ButtonComponent @click="displayTheForm = !displayTheForm">Form</ButtonComponent>
       <ButtonComponent @click="displayAdmins = !displayAdmins">Admins</ButtonComponent>
       <ButtonComponent @click="displayUsers = !displayUsers">Users</ButtonComponent>
+      <ButtonComponent @click="toggleDarkMode">DarkMode</ButtonComponent>
     </header>
     <FormComponent :displayTheForm="displayTheForm" :displayAdmins="displayAdmins" :displayUsers="displayUsers" />
   </div>
@@ -22,9 +23,16 @@ export default {
       displayTheForm: true,
       displayAdmins: true,
       displayUsers: true,
+      isDarkMode:false,
       usersArray: [],
       adminsArray: [],
     };
+  },
+  methods: {
+    toggleDarkMode() {
+      this.isDarkMode = !this.isDarkMode;
+      document.body.classList.toggle('dark-mode', this.isDarkMode); 
+    },
   },
 };
 </script>
@@ -34,4 +42,5 @@ header {
   display: flex;
   justify-content: center;
 }
+
 </style>
